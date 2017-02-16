@@ -184,7 +184,7 @@ class RatingHandler(utils.BaseRESTHandler):
     def sendgrid(self, name, rating, additional_comments, key, email, contact):
         logging.info('sendgrid 2.2.1')
         sg = sendgrid.SendGridClient(SENDGRID_API_KEY)
-        body = '{n} ({e}) has submitted a new rating for a lesson in Citizen Maths.\n\nRating: {r}\n\nAdditional Comments: {ac}\n\nLesson Key: https://course.citizenmaths.com{lk}\n\nPermission to Contact: {ct}\n\nCitizen Maths Rating Auto-sender'.format(n=name, e=email, r=rating, ac=additional_comments, lk=key, ct=contact)
+        body = '{n} ({e}) has submitted a new rating for a lesson in Citizen Maths.\n\nRating: {r}\n\nAdditional Comments: {ac}\n\nLesson Key: https://course.citizenmaths.com{lk}\n\nPermission to Contact: {ct}\n\nCitizen Maths Rating Auto-sender'.format(n=name.encode('utf-8'), e=email, r=rating, ac=additional_comments, lk=key, ct=contact)
         message = sendgrid.Mail()
         message.set_subject('A New Rating has been submitted through the Feedback/Rating widget on the Citizen Maths course')
         message.set_text(body)
